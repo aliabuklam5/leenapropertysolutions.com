@@ -835,34 +835,28 @@
 <script>
   emailjs.init('PFRtp_Ixzaoqdmgmg');
 
-  // Hero form
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  // Hero form — use specific input types to avoid picking up checkbox
   function sendHeroEmail() {
-    const btn = document.getElementById('heroSubmit');
-    const msg = document.getElementById('heroMsg');
-    const inputs = document.querySelectorAll('.hero-card input');
-    const select = document.querySelector('.hero-card select');
-    const textarea = document.querySelector('.hero-card textarea');
-    const consent = document.getElementById('sms-consent-hero');
+    const btn     = document.getElementById('heroSubmit');
+    const msg     = document.getElementById('heroMsg');
+    const name    = document.querySelector('.hero-card input[type="text"]')?.value.trim();
+    const email   = document.querySelector('.hero-card input[type="email"]')?.value.trim();
+    const phone   = document.querySelector('.hero-card input[type="tel"]')?.value.trim();
+    const interest = document.querySelector('.hero-card select')?.value || 'Not specified';
+    const message  = document.querySelector('.hero-card textarea')?.value.trim();
+    const consent  = document.getElementById('sms-consent-hero');
 
-    const name    = inputs[0]?.value.trim();
-    const email   = inputs[1]?.value.trim();
-    const phone   = inputs[2]?.value.trim();
-    const interest = select?.value || 'Not specified';
-    const message  = textarea?.value.trim();
-
-    if (!name || !email) {
-      msg.style.color = '#f87171';
-      msg.textContent = 'Please enter your name and email.';
-      return;
-    }
-    if (!consent?.checked) {
-      msg.style.color = '#f87171';
-      msg.textContent = 'Please check the SMS consent box.';
-      return;
-    }
+    if (!name) { msg.style.color='#f87171'; msg.textContent='Please enter your name.'; return; }
+    if (!email || !isValidEmail(email)) { msg.style.color='#f87171'; msg.textContent='Please enter a valid email address (e.g. name@email.com).'; return; }
+    if (!consent?.checked) { msg.style.color='#f87171'; msg.textContent='Please check the SMS consent box.'; return; }
 
     btn.disabled = true;
     btn.textContent = 'Sending…';
+    msg.textContent = '';
 
     emailjs.send('Leena_PS', 'template_leenaps', {
       from_name:   name,
@@ -875,40 +869,36 @@
       btn.textContent = '✓ Sent!';
       btn.style.background = '#4ade80';
       msg.style.color = '#4ade80';
-      msg.textContent = 'We'll be in touch soon!';
-    }).catch(() => {
+      msg.textContent = "We'll be in touch soon!";
+    }).catch((err) => {
+      console.error('EmailJS error:', JSON.stringify(err));
       btn.disabled = false;
       btn.textContent = 'Send Message →';
       btn.style.background = '';
       msg.style.color = '#f87171';
-      msg.textContent = 'Error. Email us at info@leenapropertysolutions.com';
+      msg.textContent = 'Error sending. Please email info@leenapropertysolutions.com';
     });
   }
 
   // Contact section form
   function sendContactEmail2() {
-    const btn = document.getElementById('contactSubmit2');
-    const msg = document.getElementById('contactMsg2');
-    const firstName = document.querySelector('.cf-row input:first-child')?.value.trim();
+    const btn      = document.getElementById('contactSubmit2');
+    const msg      = document.getElementById('contactMsg2');
+    const firstName = document.querySelector('#contact .cf-row input:first-child')?.value.trim();
     const email     = document.querySelector('#contact input[type="email"]')?.value.trim();
     const phone     = document.querySelector('#contact input[type="tel"]')?.value.trim();
     const interest  = document.querySelector('#contact select')?.value;
     const message   = document.querySelector('#contact textarea')?.value.trim();
     const consent   = document.getElementById('sms-consent-contact');
 
-    if (!firstName || !email || !message) {
-      msg.style.color = '#f87171';
-      msg.textContent = 'Please fill in name, email, and message.';
-      return;
-    }
-    if (!consent?.checked) {
-      msg.style.color = '#f87171';
-      msg.textContent = 'Please check the SMS consent box.';
-      return;
-    }
+    if (!firstName) { msg.style.color='#f87171'; msg.textContent='Please enter your name.'; return; }
+    if (!email || !isValidEmail(email)) { msg.style.color='#f87171'; msg.textContent='Please enter a valid email address (e.g. name@email.com).'; return; }
+    if (!message) { msg.style.color='#f87171'; msg.textContent='Please enter a message.'; return; }
+    if (!consent?.checked) { msg.style.color='#f87171'; msg.textContent='Please check the SMS consent box.'; return; }
 
     btn.disabled = true;
     btn.textContent = 'Sending…';
+    msg.textContent = '';
 
     emailjs.send('Leena_PS', 'template_leenaps', {
       from_name:   firstName,
@@ -922,12 +912,14 @@
       btn.style.background = '#4ade80';
       btn.style.color = '#0d1b2a';
       msg.style.color = '#4ade80';
-      msg.textContent = 'Thank you! We'll get back to you within one business day.';
-    }).catch(() => {
+      msg.textContent = "Thank you! We'll get back to you within one business day.";
+    }).catch((err) => {
+      console.error('EmailJS error:', JSON.stringify(err));
       btn.disabled = false;
       btn.textContent = 'Send Message →';
+      btn.style.background = '';
       msg.style.color = '#f87171';
-      msg.textContent = 'Error. Please email info@leenapropertysolutions.com';
+      msg.textContent = 'Error sending. Please email info@leenapropertysolutions.com';
     });
   }
 </script>
