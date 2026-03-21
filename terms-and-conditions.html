@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — Leena Property Solutions</title>
+<title>Terms &amp; Conditions — Leena Property Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -23,9 +23,9 @@
   body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); }
 
   nav {
-    position: sticky; top: 0; z-index: 200;
+    position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 4rem;
+    padding: 1rem 4rem;
     background: rgba(13,27,42,0.97);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
@@ -48,13 +48,11 @@
     background: var(--navy);
     padding: 5rem 4rem 4rem;
     position: relative; overflow: hidden;
-    z-index: 1;
   }
   .hero::after {
     content: '';
     position: absolute; inset: 0;
     background: radial-gradient(ellipse 60% 100% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
-    pointer-events: none;
   }
   .hero-inner { max-width: 760px; position: relative; z-index: 2; }
   .hero-eyebrow {
@@ -98,7 +96,7 @@
     background: #fff; border: 1px solid var(--cream2);
     border-radius: 4px; padding: 2.5rem;
     margin-bottom: 1.5rem;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 90px;
   }
   .section-num {
     font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -126,12 +124,11 @@
     border-radius: 0 3px 3px 0; padding: 1rem 1.2rem;
     margin: 1rem 0; font-size: 0.88rem; color: var(--navy); line-height: 1.7;
   }
-  .sms-box {
-    background: var(--navy); border-radius: 4px;
-    padding: 1.5rem 2rem; margin: 1.2rem 0;
+  .warning-box {
+    background: rgba(13,27,42,0.04); border: 1px solid var(--cream2);
+    border-radius: 3px; padding: 1.2rem 1.5rem;
+    margin: 1rem 0; font-size: 0.86rem; color: #374151; line-height: 1.7;
   }
-  .sms-box p { color: rgba(255,255,255,0.75) !important; }
-  .sms-box strong { color: var(--gold) !important; }
   .badge-row {
     display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0;
   }
@@ -147,8 +144,8 @@
     display: flex; align-items: center; justify-content: space-between;
     flex-wrap: wrap; gap: 1rem;
   }
-  footer img { height: 34px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; }
-  .footer-links { display: flex; gap: 1.5rem; }
+  footer img { height: 60px; width: auto; }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
   .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
   .footer-links a:hover { color: var(--gold); }
   .footer-copy { font-size: 0.76rem; }
@@ -172,7 +169,8 @@
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="index.html#about">About</a>
-    <a href="gis_tool.html">GIS Tool</a>
+    <a href="index.html#tool">GIS Tool</a>
+    <a href="privacy.html">Privacy Policy</a>
     <a href="contact.html" class="nav-cta">Contact</a>
   </div>
 </nav>
@@ -180,7 +178,7 @@
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">Legal</div>
-    <h1>Privacy <em>Policy</em></h1>
+    <h1>Terms &amp; <em>Conditions</em></h1>
     <div class="hero-meta">Last Updated: January 2026 &nbsp;·&nbsp; Leena Property Solutions</div>
   </div>
 </div>
@@ -190,201 +188,196 @@
   <div class="toc">
     <div class="toc-title">Table of Contents</div>
     <ol>
-      <li><a href="#s1">Introduction &amp; Data Controller</a></li>
-      <li><a href="#s2">Contact Information</a></li>
-      <li><a href="#s3">Personal Data We Collect</a></li>
-      <li><a href="#s4">How We Use Your Personal Data</a></li>
-      <li><a href="#s5">SMS Communications &amp; Opt-Out</a></li>
-      <li><a href="#s6">Legal Basis for Processing (GDPR)</a></li>
-      <li><a href="#s7">Data Retention</a></li>
-      <li><a href="#s8">Your Privacy Rights</a></li>
-      <li><a href="#s9">International Data Transfers</a></li>
-      <li><a href="#s10">Data Security</a></li>
-      <li><a href="#s11">Cookies</a></li>
-      <li><a href="#s12">Children's Privacy</a></li>
-      <li><a href="#s13">Changes to Privacy Policy</a></li>
+      <li><a href="#s1">Agreement to Terms</a></li>
+      <li><a href="#s2">Use of Website</a></li>
+      <li><a href="#s3">No Professional Advice</a></li>
+      <li><a href="#s4">No Guarantees</a></li>
+      <li><a href="#s5">User Submissions</a></li>
+      <li><a href="#s6">Electronic Communications &amp; SMS</a></li>
+      <li><a href="#s-sms">SMS Messaging Policy</a></li>
+      <li><a href="#s-sms">SMS Messaging Policy</a></li>
+      <li><a href="#s7">Intellectual Property</a></li>
+      <li><a href="#s8">Third-Party Links</a></li>
+      <li><a href="#s9">Disclaimer of Warranties</a></li>
+      <li><a href="#s10">Limitation of Liability</a></li>
+      <li><a href="#s11">Indemnification</a></li>
+      <li><a href="#s12">Governing Law</a></li>
+      <li><a href="#s13">Contact Information</a></li>
     </ol>
   </div>
 
   <div class="section" id="s1">
     <div class="section-num">Section 01</div>
-    <h2>Introduction &amp; Data Controller</h2>
-    <p>Welcome to <strong>www.leenapropertysolutions.com</strong> (the "Website"), operated by LEENA LLC ("we," "us," or "our"). Leena Property Solutions is a brand of LEENA LLC.</p>
-    <p>Leena Property Solutions is the data controller responsible for your personal data under applicable data protection laws, including the General Data Protection Regulation ("GDPR"), the California Consumer Privacy Act ("CCPA"), and applicable U.S. communications laws, including the Telephone Consumer Protection Act ("TCPA") and A2P 10DLC regulations.</p>
-    <p>We are committed to protecting your privacy and safeguarding your personal data. This Privacy Policy explains how we collect, use, store, and protect your information, and informs you of your rights under applicable data protection laws.</p>
+    <h2>Agreement to Terms</h2>
+    <p>By accessing or using this Website located at <strong>www.leenapropertysolutions.com</strong> (the "Website"), you agree to be bound by these Terms and Conditions ("Terms"). These Terms apply to all visitors, users, and others who access or use the Website.</p>
+    <p>If you do not agree to these Terms, please do not use the Website. Your continued use of the Website constitutes your acceptance of any updates or modifications to these Terms.</p>
     <div class="highlight-box">
-      By using this Website or submitting your information, you acknowledge that you have read and understood this Privacy Policy.
+      These Terms constitute a legally binding agreement between you and Leena Property Solutions. Please read them carefully before using this Website.
     </div>
   </div>
 
   <div class="section" id="s2">
     <div class="section-num">Section 02</div>
-    <h2>Contact Information</h2>
-    <div class="badge-row">
-      <div class="badge">🏢 LEENA LLC (Leena Property Solutions)</div>
-      <div class="badge">📧 info@leenapropertysolutions.com</div>
-      <div class="badge">📱 +1 (213) 845-2906</div>
-      <div class="badge">🌐 www.leenapropertysolutions.com</div>
-    </div>
-    <p>You may contact us regarding privacy, data rights, or communication preferences at any time via the email or phone number above.</p>
+    <h2>Use of Website</h2>
+    <p>You agree to use this Website for lawful purposes only and in a manner consistent with all applicable local, state, national, and international laws and regulations. You may not:</p>
+    <ul>
+      <li>Submit false, misleading, or fraudulent information through any form or communication</li>
+      <li>Attempt unauthorized access to any portion of the Website or its related systems</li>
+      <li>Use the Website to harass, abuse, or harm any person or entity</li>
+      <li>Transmit any malware, viruses, or harmful code</li>
+      <li>Scrape, copy, or reproduce Website content without express written permission</li>
+      <li>Use the Website in violation of any applicable laws or regulations</li>
+      <li>Impersonate any person or entity, or misrepresent your affiliation</li>
+    </ul>
+    <p>We reserve the right to terminate access to any user who violates these Terms.</p>
   </div>
 
   <div class="section" id="s3">
     <div class="section-num">Section 03</div>
-    <h2>Personal Data We Collect</h2>
-    <p><strong>Identity &amp; Contact Data</strong></p>
-    <ul>
-      <li>Name</li>
-      <li>Email address</li>
-      <li>Phone number (if voluntarily provided)</li>
-      <li>Investment criteria and preferences</li>
-    </ul>
-    <p><strong>Technical Data</strong></p>
-    <ul>
-      <li>IP address</li>
-      <li>Browser type and version</li>
-      <li>Device and operating system information</li>
-      <li>Approximate location</li>
-    </ul>
-    <p><strong>Usage Data</strong></p>
-    <ul>
-      <li>Pages visited</li>
-      <li>Time spent on the Website</li>
-      <li>Interaction data (clicks, form submissions)</li>
-      <li>GIS tool usage data</li>
-    </ul>
+    <h2>No Professional Advice</h2>
+    <p>All content on this Website, including information about real estate, property values, investment strategies, GIS data, and market conditions, is provided for <strong>general informational purposes only</strong>.</p>
+    <div class="warning-box">
+      Nothing on this Website constitutes legal, financial, tax, real estate, or investment advice. You should always consult qualified professionals before making any real estate or financial decisions.
+    </div>
+    <p>Leena Property Solutions is not a licensed real estate broker, attorney, financial advisor, or tax professional. Any information provided should not be relied upon as a substitute for professional advice tailored to your specific circumstances.</p>
   </div>
 
   <div class="section" id="s4">
     <div class="section-num">Section 04</div>
-    <h2>How We Use Your Personal Data</h2>
-    <p>We use personal data to:</p>
+    <h2>No Guarantees</h2>
+    <p>Leena Property Solutions makes no representations, warranties, or guarantees of any kind regarding:</p>
     <ul>
-      <li>Respond to inquiries submitted through our Website or forms</li>
-      <li>Communicate regarding our real estate services and available deals</li>
-      <li>Send deal alerts and property information to our buyer's list</li>
-      <li>Provide access to our GIS lookup tool and related services</li>
-      <li>Improve website functionality and user experience</li>
-      <li>Process payments for tool subscriptions or purchases</li>
-      <li>Comply with legal obligations</li>
+      <li>Property values, ARV estimates, or investment returns</li>
+      <li>Sale timelines or closing certainty</li>
+      <li>Investment results or profitability</li>
+      <li>Accuracy or completeness of GIS data or property information</li>
+      <li>Availability of any specific property or deal</li>
+      <li>Market conditions or future performance</li>
     </ul>
+    <div class="highlight-box">
+      All real estate decisions are made at your own risk. Past results do not guarantee future performance.
+    </div>
   </div>
 
   <div class="section" id="s5">
     <div class="section-num">Section 05</div>
-    <h2>SMS Communications &amp; Opt-Out</h2>
-    <p>By providing your mobile phone number on this Website, you expressly consent to receive SMS/MMS text messages from Leena Property Solutions related to your inquiry, our services, deal alerts, and other relevant communications.</p>
-    <div class="sms-box">
-      <p><strong>Important SMS Disclosures (A2P Compliance)</strong></p>
-      <p style="margin-top:0.6rem;">• Message frequency may vary based on your inquiry and preferences<br>
-      • Message and data rates may apply (charged by your carrier)<br>
-      • <strong>Consent is not a condition of any purchase</strong><br>
-      • This service is available to U.S. mobile subscribers only</p>
-    </div>
-    <p><strong>How to Opt Out:</strong></p>
+    <h2>User Submissions</h2>
+    <p>By submitting information through this Website — including but not limited to contact forms, buyer's list sign-ups, and property submissions — you represent and warrant that:</p>
     <ul>
-      <li>Reply <strong>STOP</strong> to any message to unsubscribe immediately</li>
-      <li>Reply <strong>HELP</strong> for assistance</li>
-      <li>Email us at info@leenapropertysolutions.com</li>
-      <li>Call us at +1 (213) 845-2906</li>
+      <li>All information provided is accurate, current, and complete</li>
+      <li>You have the legal right to provide such information</li>
+      <li>You authorize Leena Property Solutions to contact you via the methods provided</li>
+      <li>You are at least 18 years of age</li>
     </ul>
-    <p>After opting out, you may receive one final confirmation message. No further messages will be sent.</p>
-    <div class="highlight-box">
-      <strong>SMS consent is not shared with third parties or affiliates for marketing purposes.</strong> No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. All other categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.
-    </div>
-    <p>We may use third-party service providers to send messages, but your information will only be used for communication related to our services. <strong>We only communicate with individuals who have opted in through our website or requested information about our services.</strong></p>
+    <p>We reserve the right to refuse service or remove submissions at our sole discretion.</p>
   </div>
 
   <div class="section" id="s6">
     <div class="section-num">Section 06</div>
-    <h2>Legal Basis for Processing (GDPR)</h2>
-    <p>For users in the European Economic Area (EEA), we process personal data based on the following legal grounds:</p>
+    <h2>Electronic Communications &amp; SMS</h2>
+    <p>By providing your contact information through this Website, you consent to receive communications from Leena Property Solutions via email, phone calls, and SMS/MMS text messages related to your inquiry, our services, deal alerts, and related matters.</p>
+    <p><strong>SMS-Specific Terms (A2P Compliance):</strong></p>
     <ul>
-      <li><strong>Consent</strong> — where you have given clear consent for us to process your data for a specific purpose</li>
-      <li><strong>Contractual necessity</strong> — where processing is necessary to fulfill a contract or take pre-contractual steps</li>
-      <li><strong>Legal obligations</strong> — where processing is necessary to comply with applicable law</li>
-      <li><strong>Legitimate business interests</strong> — where we have a legitimate interest that is not overridden by your rights</li>
+      <li>Message frequency may vary</li>
+      <li>Message and data rates may apply</li>
+      <li><strong>Consent is not a condition of any purchase</strong></li>
+      <li>Reply <strong>STOP</strong> to opt out of SMS at any time</li>
+      <li>Reply <strong>HELP</strong> for assistance</li>
+      <li>No mobile information will be shared with third parties for marketing purposes</li>
     </ul>
-    <p>Consent may be withdrawn at any time without affecting the lawfulness of prior processing.</p>
+    <p>You may opt out of any form of communication at any time by contacting us directly or using the opt-out mechanisms provided in each communication.</p>
+  </div>
+
+  <div class="section" id="s-sms">
+    <div class="section-num">SMS Compliance</div>
+    <h2>SMS Communications &amp; Messaging Policy</h2>
+    <p>By providing your phone number and opting in through our website forms, you consent to receive SMS (text) messages from Leena Property Solutions (LEENA LLC) regarding property inquiries, offers, follow-ups, and related services.</p>
+    <ul>
+      <li>Message frequency may vary</li>
+      <li>Message and data rates may apply</li>
+      <li>You can opt out at any time by replying <strong>STOP</strong></li>
+      <li>For assistance, reply <strong>HELP</strong> or contact us directly</li>
+      <li><strong>Consent to receive SMS is not a condition of any purchase</strong></li>
+    </ul>
+    <div class="highlight-box">
+      <strong>We only communicate with individuals who have opted in through our website or requested information about our services.</strong> SMS consent and phone numbers are never shared with third parties or affiliates for marketing purposes.
+    </div>
+    <p>We are not responsible for any delays or failures in message delivery caused by carriers or third-party service providers.</p>
   </div>
 
   <div class="section" id="s7">
     <div class="section-num">Section 07</div>
-    <h2>Data Retention</h2>
-    <p>We retain personal data only as long as necessary for the purposes described in this Privacy Policy, or as required by applicable law. Specifically:</p>
-    <ul>
-      <li>Contact and inquiry data: up to 3 years from last contact</li>
-      <li>Transaction records: up to 7 years (legal/accounting requirements)</li>
-      <li>Marketing preferences and opt-out records: indefinitely (to honor your preferences)</li>
-    </ul>
-    <p>Data is securely deleted or anonymized when no longer needed for any legitimate purpose.</p>
+    <h2>Intellectual Property</h2>
+    <p>All content on this Website — including but not limited to text, graphics, logos, images, GIS tool code, data compilations, and software — is the property of Leena Property Solutions and is protected by applicable copyright, trademark, and intellectual property laws.</p>
+    <p>You may not reproduce, distribute, modify, create derivative works from, publicly display, or commercially exploit any content from this Website without our express prior written permission.</p>
+    <p>The Leena Property Solutions name, logo, and all related marks are trademarks of Leena Property Solutions. Unauthorized use is strictly prohibited.</p>
   </div>
 
   <div class="section" id="s8">
     <div class="section-num">Section 08</div>
-    <h2>Your Privacy Rights</h2>
-    <p><strong>GDPR (EEA Residents)</strong></p>
-    <ul>
-      <li>Right of access to your personal data</li>
-      <li>Right to correction of inaccurate data</li>
-      <li>Right to erasure ("right to be forgotten")</li>
-      <li>Right to restriction of processing</li>
-      <li>Right to object to processing</li>
-      <li>Right to data portability</li>
-      <li>Right to withdraw consent at any time</li>
-    </ul>
-    <p><strong>CCPA (California Residents)</strong></p>
-    <ul>
-      <li>Right to know what personal information is collected</li>
-      <li>Right to delete personal information</li>
-      <li>Right to correct inaccurate personal information</li>
-      <li>Right to opt out of sale or sharing of personal information</li>
-      <li>Right to non-discrimination for exercising your rights</li>
-    </ul>
-    <div class="highlight-box">
-      👉 <strong>We do not sell personal information.</strong> We do not share personal information with third parties for their own marketing purposes.
-    </div>
-    <p>To exercise any of these rights, contact us at info@leenapropertysolutions.com or +1 (213) 845-2906.</p>
+    <h2>Third-Party Links</h2>
+    <p>This Website may contain links to third-party websites or services that are not owned or controlled by Leena Property Solutions. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party websites.</p>
+    <p>We do not warrant the offerings of any third parties, and we shall not be responsible for any loss or damage caused by your use of or reliance on any third-party websites, products, or services.</p>
+    <p>We encourage you to review the terms and privacy policies of any third-party sites you visit.</p>
   </div>
 
   <div class="section" id="s9">
     <div class="section-num">Section 09</div>
-    <h2>International Data Transfers</h2>
-    <p>Your data may be processed in the United States or other jurisdictions where our service providers operate. Where required by applicable law (including GDPR), we ensure appropriate safeguards are in place, such as Standard Contractual Clauses or adequacy decisions, to protect your personal data during international transfers.</p>
+    <h2>Disclaimer of Warranties</h2>
+    <p>This Website and all content, tools, and services are provided on an <strong>"as is"</strong> and <strong>"as available"</strong> basis without any warranties of any kind, either express or implied.</p>
+    <p>To the fullest extent permitted by applicable law, Leena Property Solutions expressly disclaims all warranties, including but not limited to implied warranties of merchantability, fitness for a particular purpose, accuracy, and non-infringement.</p>
+    <div class="warning-box">
+      We do not warrant that the Website will be uninterrupted, error-free, secure, or free of viruses or other harmful components.
+    </div>
   </div>
 
   <div class="section" id="s10">
     <div class="section-num">Section 10</div>
-    <h2>Data Security</h2>
-    <p>We implement reasonable and appropriate administrative, technical, and organizational security measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. These measures include encryption in transit, access controls, and regular security reviews.</p>
-    <p>However, no method of transmission over the internet or method of electronic storage is completely secure. While we strive to use commercially acceptable means to protect your data, we cannot guarantee absolute security.</p>
+    <h2>Limitation of Liability</h2>
+    <p>To the fullest extent permitted by applicable law, Leena Property Solutions, its owners, employees, agents, and affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from:</p>
+    <ul>
+      <li>Your use of or inability to use the Website</li>
+      <li>Any content obtained from the Website</li>
+      <li>Unauthorized access to or alteration of your data</li>
+      <li>Any real estate transaction or investment decision made in reliance on Website content</li>
+      <li>Any errors, inaccuracies, or omissions in GIS data or property information</li>
+    </ul>
+    <p>In no event shall our total liability to you exceed the amount paid by you, if any, for accessing our services in the twelve (12) months preceding the claim.</p>
   </div>
 
   <div class="section" id="s11">
     <div class="section-num">Section 11</div>
-    <h2>Cookies</h2>
-    <p>We use cookies and similar tracking technologies to improve website functionality and user experience. Cookies help us understand how you interact with our Website so we can improve it over time.</p>
-    <p>You can control and manage cookies through your browser settings. Please note that disabling certain cookies may affect the functionality of some features of this Website.</p>
-    <p>Types of cookies we may use:</p>
+    <h2>Indemnification</h2>
+    <p>You agree to defend, indemnify, and hold harmless Leena Property Solutions and its owners, employees, agents, contractors, and affiliates from and against any claims, damages, obligations, losses, liabilities, costs, or debt, and expenses (including attorney's fees) arising from:</p>
     <ul>
-      <li><strong>Essential cookies</strong> — required for basic website functionality</li>
-      <li><strong>Analytics cookies</strong> — help us understand usage patterns</li>
-      <li><strong>Preference cookies</strong> — remember your settings and choices</li>
+      <li>Your use of or access to the Website</li>
+      <li>Your violation of any of these Terms</li>
+      <li>Your violation of any third-party rights, including intellectual property or privacy rights</li>
+      <li>Any claim that your submitted information caused damage to a third party</li>
     </ul>
   </div>
 
   <div class="section" id="s12">
     <div class="section-num">Section 12</div>
-    <h2>Children's Privacy</h2>
-    <p>This Website is not intended for individuals under the age of 18. We do not knowingly collect, solicit, or process personal data from children under 18. If you believe we have inadvertently collected information from a minor, please contact us immediately at info@leenapropertysolutions.com and we will promptly delete such data.</p>
+    <h2>Governing Law</h2>
+    <p>These Terms shall be governed by and construed in accordance with the laws of the State of Florida, where Leena Property Solutions primarily operates, without regard to its conflict of law provisions.</p>
+    <p>Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the state and federal courts located in Lee County, Florida. You consent to personal jurisdiction in such courts.</p>
+    <p>If any provision of these Terms is found to be unenforceable, the remaining provisions shall remain in full force and effect.</p>
   </div>
 
   <div class="section" id="s13">
     <div class="section-num">Section 13</div>
-    <h2>Changes to Privacy Policy</h2>
-    <p>We may update this Privacy Policy from time to time to reflect changes in our practices, legal requirements, or operational needs. Any changes will be posted on this page with an updated "Last Updated" date at the top.</p>
-    <p>We encourage you to review this Privacy Policy periodically. Continued use of our Website after any changes constitutes your acceptance of the updated policy.</p>
-    <p>For material changes, we will make reasonable efforts to notify you directly (e.g., via email if you have provided one).</p>
+    <h2>Contact Information</h2>
+    <p>If you have any questions about these Terms and Conditions, please contact us:</p>
+    <div class="badge-row">
+      <div class="badge">🏢 LEENA LLC (Leena Property Solutions)</div>
+      <div class="badge">📧 info@leenapropertysolutions.com</div>
+      <div class="badge">📱 +1 (213) 845-2906</div>
+    </div>
+    <p>We will make every reasonable effort to respond to your inquiry within one (1) business day.</p>
+    <div class="highlight-box">
+      By using this Website, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.
+    </div>
   </div>
 
 </div>
@@ -395,6 +388,7 @@
     <a href="index.html">Home</a>
     <a href="contact.html">Contact</a>
     <a href="privacy.html">Privacy Policy</a>
+    <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
   </div>
   <div class="footer-copy">© 2025 Leena Property Solutions, a brand operated by LEENA LLC. All rights reserved.</div>
 </footer>
