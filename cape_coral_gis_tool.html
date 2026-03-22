@@ -8,27 +8,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:    #1e2b4a;
-    --navy-dk: #0d1525;
-    --navy-lt: #2a3d66;
+    --navy:    #0d1b2a;
+    --navy-dk: #0d1b2a;
+    --navy-lt: #162032;
     --gold:    #c9a84c;
-    --gold-lt: #e0bc6a;
+    --gold-lt: #e8c97a;
     --gold-dk: #a07828;
-    --bg:      #0f1923;
-    --bg-card: #162030;
+    --bg:      #0d1b2a;
+    --bg-card: #162032;
     --bg-input:#1a2840;
     --bg-hover:#1e3050;
     --white:   #ffffff;
-    --text:    #dce6f5;
-    --text-dim: #a8bcd8;
-    --muted:   #6b82a8;
-    --border:  rgba(100,140,200,0.12);
+    --text:    #f5f0e8;
+    --text-dim: #ede6d8;
+    --muted:   #6b7280;
+    --border:  rgba(201,168,76,0.2);
     --border-gold: rgba(201,168,76,0.3);
-    --success: #3daa78;
-    --danger:  #d05a5a;
+    --success: #4ade80;
+    --danger:  #f87171;
     --shadow:  0 2px 24px rgba(0,0,0,0.4);
     --shadow-md: 0 6px 40px rgba(0,0,0,0.5);
   }
@@ -36,7 +36,7 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Lato', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 400;
     min-height: 100vh;
     line-height: 1.6;
@@ -67,7 +67,7 @@
     text-align: right;
   }
   .header-tagline h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.35rem;
     font-weight: 600;
     color: var(--white);
@@ -100,7 +100,7 @@
     opacity: 0.5;
   }
   .hero-band h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.9rem;
     font-weight: 700;
     color: var(--white);
@@ -154,7 +154,7 @@
     border-radius: 6px 6px 0 0;
   }
   .card h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--text);
@@ -187,7 +187,7 @@
     border: 1px solid var(--border);
     border-radius: 5px;
     color: var(--text);
-    font-family: 'Lato', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.9rem;
     padding: 10px 14px;
     outline: none;
@@ -209,7 +209,7 @@
 
   /* ─── BUTTONS ─────────────────────────────────────── */
   .btn {
-    font-family: 'Lato', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 0.88rem;
     padding: 11px 24px;
@@ -326,7 +326,7 @@
     font-size: 0.73rem;
     line-height: 1.75;
     margin-top: 12px;
-    font-family: 'Lato', monospace;
+    font-family: 'DM Sans', monospace;
   }
   .l-ok  { color: #5dba8a; }
   .l-err { color: #e07575; }
@@ -360,7 +360,7 @@
     text-align: center;
   }
   .stat .n {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.8rem;
     font-weight: 700;
     line-height: 1;
@@ -395,7 +395,7 @@
     top: 0;
     border-bottom: 2px solid var(--gold-dk);
     font-weight: 700;
-    font-family: 'Lato', sans-serif;
+    font-family: 'DM Sans', sans-serif;
   }
   tbody tr { border-bottom: 1px solid rgba(100,140,200,0.08); }
   tbody tr:hover { background: var(--bg-hover); }
