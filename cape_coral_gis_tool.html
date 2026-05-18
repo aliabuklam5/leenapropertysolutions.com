@@ -8,27 +8,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:    #0d1b2a;
-    --navy-dk: #0d1b2a;
-    --navy-lt: #162032;
+    --navy:    #1e2b4a;
+    --navy-dk: #0d1525;
+    --navy-lt: #2a3d66;
     --gold:    #c9a84c;
-    --gold-lt: #e8c97a;
+    --gold-lt: #e0bc6a;
     --gold-dk: #a07828;
-    --bg:      #0d1b2a;
-    --bg-card: #162032;
+    --bg:      #0f1923;
+    --bg-card: #162030;
     --bg-input:#1a2840;
     --bg-hover:#1e3050;
     --white:   #ffffff;
-    --text:    #f5f0e8;
-    --text-dim: #ede6d8;
-    --muted:   #6b7280;
-    --border:  rgba(201,168,76,0.2);
+    --text:    #dce6f5;
+    --text-dim: #a8bcd8;
+    --muted:   #6b82a8;
+    --border:  rgba(100,140,200,0.12);
     --border-gold: rgba(201,168,76,0.3);
-    --success: #4ade80;
-    --danger:  #f87171;
+    --success: #3daa78;
+    --danger:  #d05a5a;
     --shadow:  0 2px 24px rgba(0,0,0,0.4);
     --shadow-md: 0 6px 40px rgba(0,0,0,0.5);
   }
@@ -36,7 +36,7 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 400;
     min-height: 100vh;
     line-height: 1.6;
@@ -67,7 +67,7 @@
     text-align: right;
   }
   .header-tagline h1 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.35rem;
     font-weight: 600;
     color: var(--white);
@@ -100,7 +100,7 @@
     opacity: 0.5;
   }
   .hero-band h2 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.9rem;
     font-weight: 700;
     color: var(--white);
@@ -154,7 +154,7 @@
     border-radius: 6px 6px 0 0;
   }
   .card h2 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--text);
@@ -187,7 +187,7 @@
     border: 1px solid var(--border);
     border-radius: 5px;
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 0.9rem;
     padding: 10px 14px;
     outline: none;
@@ -209,7 +209,7 @@
 
   /* ─── BUTTONS ─────────────────────────────────────── */
   .btn {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 700;
     font-size: 0.88rem;
     padding: 11px 24px;
@@ -326,7 +326,7 @@
     font-size: 0.73rem;
     line-height: 1.75;
     margin-top: 12px;
-    font-family: 'DM Sans', monospace;
+    font-family: 'Lato', monospace;
   }
   .l-ok  { color: #5dba8a; }
   .l-err { color: #e07575; }
@@ -360,7 +360,7 @@
     text-align: center;
   }
   .stat .n {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     font-weight: 700;
     line-height: 1;
@@ -395,7 +395,7 @@
     top: 0;
     border-bottom: 2px solid var(--gold-dk);
     font-weight: 700;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
   }
   tbody tr { border-bottom: 1px solid rgba(100,140,200,0.08); }
   tbody tr:hover { background: var(--bg-hover); }
@@ -533,6 +533,9 @@
     <div class="file-ok" id="fileOk" style="display:none;"></div>
   </div>
 
+  <!-- CACHE STATUS BANNER -->
+  <div class="tip" id="cacheStatus" style="display:none; margin-bottom:0;"></div>
+
   <!-- MAP COLUMNS -->
   <div class="card" id="mapCard" style="display:none;">
     <h2>
@@ -559,8 +562,42 @@
       </div>
     </div>
     <div class="tip">
-      <strong>How it works:</strong> Each address is looked up directly in the Cape Coral GIS Address database (no third-party geocoder). The matched parcel point is then checked against Water, Sewer, Zoning, Environmental wildlife layers, and the Parcels layer for corner lot detection. Wildlife zones show <strong>Y</strong> if present, blank if not.
+      <strong>How it works:</strong> Zone layers (Water, Sewer, Zoning, Canal) are downloaded once into memory on page load and checked locally. Flood Zone, Wildlife and Corner Lot query the live GIS server. Geocode results are cached in-session.
     </div>
+
+    <!-- CHECKS SELECTOR -->
+    <div style="margin-top:14px;">
+      <div style="font-size:0.78rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Select checks to run</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.85rem;">
+          <input type="checkbox" id="chkWater" checked style="accent-color:var(--gold);width:15px;height:15px;"> Water
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.85rem;">
+          <input type="checkbox" id="chkSewer" checked style="accent-color:var(--gold);width:15px;height:15px;"> Sewer
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.85rem;">
+          <input type="checkbox" id="chkZoning" checked style="accent-color:var(--gold);width:15px;height:15px;"> Zoning
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.85rem;">
+          <input type="checkbox" id="chkFlood" checked style="accent-color:var(--gold);width:15px;height:15px;"> Flood Zone
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.85rem;">
+          <input type="checkbox" id="chkWildlife" checked style="accent-color:var(--gold);width:15px;height:15px;"> Wildlife
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.85rem;">
+          <input type="checkbox" id="chkCanal" checked style="accent-color:var(--gold);width:15px;height:15px;"> Canal Lot
+        </label>
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.85rem;">
+          <input type="checkbox" id="chkCorner" checked style="accent-color:var(--gold);width:15px;height:15px;"> Corner Lot
+        </label>
+      </div>
+      <div style="margin-top:8px;">
+        <button onclick="document.querySelectorAll('[id^=chk]').forEach(c=>c.checked=true)" style="background:none;border:none;color:var(--muted);font-size:0.75rem;cursor:pointer;padding:0;text-decoration:underline;">Select all</button>
+        &nbsp;
+        <button onclick="document.querySelectorAll('[id^=chk]').forEach(c=>c.checked=false)" style="background:none;border:none;color:var(--muted);font-size:0.75rem;cursor:pointer;padding:0;text-decoration:underline;">Clear all</button>
+      </div>
+    </div>
+
     <div class="btn-row">
       <button class="btn btn-primary" id="startBtn" onclick="run()">&#9654; Run Lookup</button>
       <span id="rowCount"></span>
@@ -576,7 +613,17 @@
       Processing
     </h2>
     <div class="prog-bg"><div class="prog-fill" id="pFill"></div></div>
-    <div class="prog-txt" id="pTxt">Starting…</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:8px;">
+      <div class="prog-txt" id="pTxt">Starting…</div>
+      <div id="pEta" style="font-size:0.78rem;color:var(--muted);"></div>
+    </div>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="btn btn-outline" id="pauseBtn" onclick="togglePause()" style="display:none;">⏸ Pause</button>
+      <button class="btn btn-outline" id="dlPartialBtn" onclick="downloadPartial()" style="display:none;">⬇ Download So Far</button>
+    </div>
+    <div id="pauseBanner" style="display:none;margin-top:10px;padding:8px 12px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:3px;font-size:0.8rem;color:#fbbf24;">
+      ⏸ Paused — click Resume to continue, or Download So Far to export completed rows.
+    </div>
     <div class="log" id="logBox"></div>
   </div>
 
@@ -611,39 +658,201 @@
 // ─── ENDPOINTS ────────────────────────────────────────────────────────────
 const BASE = 'https://capeims.capecoral.gov/arcgis/rest/services';
 
-// Address point layer — query by Street_Number + Street_Name
-const ADDR_URL = `${BASE}/OpenData/Addresses/FeatureServer/0/query`;
-
-// Water assessment districts (polygon layer)
-// Try PublicWorks first; fall back to OpenData/Environmental
+const ADDR_URL     = `${BASE}/OpenData/Addresses/FeatureServer/0/query`;
 const WATER_URL    = `${BASE}/GISDATA/Water_Assessment_Areas/MapServer/0/query`;
 const SEWER_URL    = `${BASE}/GISDATA/Sewer_Assessment_Areas/MapServer/0/query`;
-
-// Wildlife points — PRIMARY: authoritative AGOL layer (same data IMS uses)
-const WILDLIFE_URL  = `${BASE}/GISDATA/Wildlife/MapServer/0/query`;
-const EAGLE_URL     = `${BASE}/AGOL/NOA_Release_Areas/FeatureServer/0/query`;
-
-// Zoning layer — IMS MapServer layer 32, field LMLUZN
+const WILDLIFE_URL = `${BASE}/GISDATA/Wildlife/MapServer/0/query`;
+const EAGLE_URL    = `${BASE}/AGOL/NOA_Release_Areas/FeatureServer/0/query`;
 const ZONING_URL   = `${BASE}/IMS/City_of_Cape_Coral_IMS_AGOL/MapServer/32/query`;
-// Flood Zone (FEMA FIRM) — IMS MapServer layer 8, field FLOODZONE (e.g. "AE 8", "X", "VE 11")
 const FLOOD_URL    = `${BASE}/IMS/City_of_Cape_Coral_IMS_AGOL/MapServer/8/query`;
-
-// Canals polygon layer — IMS FeatureServer layer 33 (the authoritative Cape Coral canal polygons)
 const CANAL_URL    = `${BASE}/IMS/City_of_Cape_Coral_IMS_AGOL/FeatureServer/33/query`;
-
-// Street Centerline layer — PublicWorks MapServer layer 7 — used for corner lot detection
+const OWNERSHIP_URL= `${BASE}/IMS/City_of_Cape_Coral_IMS_AGOL/MapServer/30/query`;
 const STREET_URL   = `${BASE}/OpenData/PublicWorks/MapServer/7/query`;
 
-// Coordinate system: WKID 102659 = Florida State Plane West (feet)
-// ALL geometry must be passed in this CRS to match the server data
 const SR = 102659;
-
-// Max query distance for wildlife — large enough to catch any nest buffer (eagle can be 1500ft+)
-// We then filter by each feature's own BUFFER field value vs. actual distance to the point.
-const WILDLIFE_SCAN_DIST = 2000; // feet — scan radius; per-feature BUFFER field does the real filtering
+const WILDLIFE_SCAN_DIST = 2000;
 
 // ─── STATE ────────────────────────────────────────────────────────────────
-let rawData = [], headers = [], results = [], running = false;
+let rawData = [], headers = [], results = [], running = false, paused = false;
+let startTime = 0, completedCount = 0;
+
+// ─── LOCAL POLYGON CACHE ──────────────────────────────────────────────────
+// Stores pre-downloaded polygon features for each layer.
+// Each entry: { features: [...], loaded: bool, loading: bool, error: bool }
+const CACHE = {
+  water:     { features: [], loaded: false, loading: false, error: false },
+  sewer:     { features: [], loaded: false, loading: false, error: false },
+  zoning:    { features: [], loaded: false, loading: false, error: false },
+  ownership: { features: [], loaded: false, loading: false, error: false },
+};
+
+// ─── PAGINATED LAYER DOWNLOADER ───────────────────────────────────────────
+// ArcGIS servers cap results at maxRecordCount (usually 1000–2000).
+// We page through using resultOffset until no more features come back.
+async function downloadAllFeatures(url, outFields, where = '1=1') {
+  const PAGE = 1000;
+  let offset = 0;
+  const all = [];
+  while (true) {
+    const q = `${url}?where=${encodeURIComponent(where)}&outFields=${encodeURIComponent(outFields)}&returnGeometry=true&outSR=${SR}&resultRecordCount=${PAGE}&resultOffset=${offset}&f=json`;
+    let d;
+    try {
+      const r = await fetch(q);
+      d = await r.json();
+    } catch(e) { break; }
+    if (d.error || !d.features) break;
+    all.push(...d.features);
+    if (d.features.length < PAGE) break; // last page
+    offset += PAGE;
+  }
+  return all;
+}
+
+// ─── INIT CACHE ON PAGE LOAD ─────────────────────────────────────────────
+// Kick off all downloads in parallel as soon as the page loads.
+// Each layer download is independent — failures are silent (fall back to live query).
+async function initCache() {
+  const ui = document.getElementById('cacheStatus');
+
+  const layers = [
+    { key: 'water',     url: WATER_URL,     fields: 'SRV_AVAIL,CODE_DESCRIPTION,Completion_Status',  label: 'Water'     },
+    { key: 'sewer',     url: SEWER_URL,     fields: 'SRV_AVAIL,CODE_DESCRIPTION,Completion_Status',  label: 'Sewer'     },
+    { key: 'zoning',    url: ZONING_URL,    fields: 'LMLUZN',                                         label: 'Zoning'    },
+    { key: 'ownership', url: OWNERSHIP_URL, fields: 'Canal',                                          label: 'Canal'     },
+  ];
+
+  const updateUI = () => {
+    if (!ui) return;
+    const total = layers.length;
+    const done  = layers.filter(l => CACHE[l.key].loaded || CACHE[l.key].error).length;
+    const errs  = layers.filter(l => CACHE[l.key].error).length;
+    const counts = layers.map(l => {
+      const c = CACHE[l.key];
+      if (c.loading) return `<span style="color:var(--gold)">${l.label}…</span>`;
+      if (c.error)   return `<span style="color:var(--danger)">${l.label} ✗</span>`;
+      if (c.loaded)  return `<span style="color:var(--success)">${l.label} ✓ (${c.features.length})</span>`;
+      return `<span style="color:var(--muted)">${l.label}</span>`;
+    }).join(' &nbsp;|&nbsp; ');
+
+    if (done < total) {
+      ui.innerHTML = `<b>⚡ Loading zone data into memory…</b> &nbsp; ${counts}`;
+      ui.style.borderLeftColor = 'var(--gold)';
+    } else if (errs === total) {
+      ui.innerHTML = `<b>⚠ Zone cache unavailable</b> — will use live GIS queries (slower). ${counts}`;
+      ui.style.borderLeftColor = 'var(--danger)';
+    } else if (errs > 0) {
+      ui.innerHTML = `<b>⚡ Zone data ready</b> (${errs} layer(s) using live fallback). ${counts}`;
+      ui.style.borderLeftColor = 'var(--gold)';
+    } else {
+      ui.innerHTML = `<b>⚡ All zone data cached locally</b> — batch lookups will be fast! ${counts}`;
+      ui.style.borderLeftColor = 'var(--success)';
+    }
+    ui.style.display = 'block';
+  };
+
+  await Promise.all(layers.map(async (layer) => {
+    CACHE[layer.key].loading = true;
+    updateUI();
+    try {
+      const feats = await downloadAllFeatures(layer.url, layer.fields);
+      CACHE[layer.key].features = feats;
+      CACHE[layer.key].loaded   = feats.length > 0;
+      CACHE[layer.key].error    = feats.length === 0;
+    } catch(e) {
+      CACHE[layer.key].error = true;
+    }
+    CACHE[layer.key].loading = false;
+    updateUI();
+  }));
+}
+
+// Start cache loading immediately
+window.addEventListener('DOMContentLoaded', initCache);
+
+// ─── POINT-IN-POLYGON (ray casting) ──────────────────────────────────────
+// Works on ArcGIS ring arrays: [[x,y],[x,y],...]
+// Handles features with multiple rings (holes use winding direction but
+// for this use-case a simple even/odd rule is accurate enough).
+function pointInRings(px, py, rings) {
+  let inside = false;
+  for (const ring of rings) {
+    const n = ring.length;
+    let j = n - 1;
+    for (let i = 0; i < n; i++) {
+      const xi = ring[i][0], yi = ring[i][1];
+      const xj = ring[j][0], yj = ring[j][1];
+      if (((yi > py) !== (yj > py)) && (px < (xj - xi) * (py - yi) / (yj - yi) + xi)) {
+        inside = !inside;
+      }
+      j = i;
+    }
+  }
+  return inside;
+}
+
+function pointInFeature(px, py, feature) {
+  const geom = feature.geometry;
+  if (!geom) return false;
+  // Polygon: geom.rings  |  MultiPatch / other: skip
+  const rings = geom.rings;
+  if (!rings) return false;
+  return pointInRings(px, py, rings);
+}
+
+// ─── CACHED POLYGON LOOKUP ────────────────────────────────────────────────
+// Returns the first matching feature from cache, or null if none.
+function findInCache(cacheKey, px, py) {
+  const entry = CACHE[cacheKey];
+  if (!entry.loaded) return undefined; // undefined = cache miss (not loaded), null = not found
+  for (const f of entry.features) {
+    if (pointInFeature(px, py, f)) return f;
+  }
+  return null; // null = definitely not in any polygon
+}
+
+// ─── CACHED VERSIONS OF ZONE CHECKS ──────────────────────────────────────
+
+async function checkPolygonFast(url, cacheKey, px, py) {
+  // Try cache first
+  const cached = findInCache(cacheKey, px, py);
+  if (cached !== undefined) {
+    // Cache hit (or confirmed miss)
+    if (cached === null) return { result: 'No', detail: 'not in district' };
+    const attrs = cached.attributes;
+    const srv = String(attrs.SRV_AVAIL ?? '').trim().toUpperCase();
+    if (srv === 'Y') return { result: 'Yes', detail: attrs.Completion_Status || attrs.CODE_DESCRIPTION || '' };
+    if (srv === 'N') return { result: 'No',  detail: attrs.Completion_Status || attrs.CODE_DESCRIPTION || '' };
+    return { result: 'Yes', detail: JSON.stringify(attrs).substring(0, 80) };
+  }
+  // Cache not available — fall back to original live query
+  return checkPolygon(url, px, py);
+}
+
+async function checkZoningFast(px, py) {
+  const cached = findInCache('zoning', px, py);
+  if (cached !== undefined) {
+    if (cached === null) return { result: '', detail: '' };
+    const z = String(cached.attributes.LMLUZN || '').trim();
+    return { result: z || 'Unknown', detail: '' };
+  }
+  return checkZoning(px, py);
+}
+
+// Flood zone always uses live query — too many polygons to cache reliably
+async function checkFloodZoneFast(px, py) {
+  return checkFloodZone(px, py);
+}
+
+async function checkCanalFast(px, py) {
+  const cached = findInCache('ownership', px, py);
+  if (cached !== undefined) {
+    if (cached === null) return { result: 'No', detail: '' };
+    const canal = String(cached.attributes.Canal || '').trim();
+    if (canal && canal.toUpperCase() !== 'NULL') return { result: 'Yes', detail: canal };
+    return { result: 'No', detail: '' };
+  }
+  return checkCanal(px, py);
+}
 
 // ─── UPLOAD ───────────────────────────────────────────────────────────────
 const dz = document.getElementById('dz');
@@ -730,46 +939,44 @@ function getAddrParts(row) {
   return { num: String(row[ni] || '').trim(), name: String(row[si] || '').trim() };
 }
 
+// ─── GEOCODE CACHE ────────────────────────────────────────────────────────
+// Keyed by "NUM|NAME" — survives the whole browser session.
+// Saves re-querying the same address on reruns or duplicate rows.
+const GEO_CACHE = new Map();
+
 // ─── STEP 1: find address point in Cape Coral GIS ─────────────────────────
-// Street_Name only stores the BASE name (e.g. "NELSON", "8TH", "PINE ISLAND")
-// Prefix stores NE/NW/SE/SW, Type stores ST/AVE/RD/PL etc.
-// SiteAddress stores the full combined string: "1313 NELSON RD N"
-// So we query SiteAddress LIKE '{num} {name}%' for the most reliable match.
 async function findAddress(num, name) {
   const esc = v => v.replace(/'/g, "''");
   const numUC  = String(num).trim().toUpperCase();
   const nameUC = name.trim().toUpperCase();
+  const cacheKey = `${numUC}|${nameUC}`;
 
-  // DB is already all-caps; avoid UPPER() as some ArcGIS servers don't support it.
-  // SiteAddress = full string e.g. "1313 NELSON RD N"
-  // Full_Street_Name = e.g. "NELSON RD N"
+  if (GEO_CACHE.has(cacheKey)) return GEO_CACHE.get(cacheKey);
+
   const queries = [
-    // Most reliable: match SiteAddress directly (already uppercase in DB)
     `Street_Number='${esc(numUC)}' AND SiteAddress LIKE '${esc(numUC + ' ' + nameUC)}%'`,
-    // Full_Street_Name match
     `Street_Number='${esc(numUC)}' AND Full_Street_Name LIKE '${esc(nameUC)}%'`,
-    // First word of street name only (e.g. "NELSON" from "NELSON RD N")
     `Street_Number='${esc(numUC)}' AND Street_Name LIKE '${esc(nameUC.split(' ')[0])}%'`,
   ];
 
   for (const where of queries) {
-    // Build URL manually to avoid double-encoding of LIKE clauses
     const url = `${ADDR_URL}?where=${encodeURIComponent(where)}&outFields=Street_Number,Street_Name,SiteAddress,Full_Street_Name,Prefix,Type&returnGeometry=true&outSR=${SR}&resultRecordCount=5&f=json`;
-    let res, d;
-    try { res = await fetch(url); d = await res.json(); }
+    let d;
+    try { d = await fetch(url).then(r => r.json()); }
     catch(e) { continue; }
     if (d.features && d.features.length > 0) {
-      // If multiple results, pick the one whose SiteAddress best matches input
       const best = pickBestMatch(d.features, numUC, nameUC);
-      return {
+      const result = {
         x: best.geometry.x,
         y: best.geometry.y,
         label: best.attributes.SiteAddress || `${num} ${name}`,
         fuzzy: where.includes(nameUC.split(' ')[0] + '%')
       };
+      GEO_CACHE.set(cacheKey, result);
+      return result;
     }
   }
-  return null;
+  return null; // not cached — will retry next run
 }
 
 // Pick the feature whose SiteAddress most closely matches the input
@@ -821,12 +1028,12 @@ async function checkWildlife(x, y) {
     } catch(e) { return null; } // null = fetch failed
   };
 
-  const eagleAgolUrl = `${EAGLE_URL}?where=${encodeURIComponent("STATUS='Active'")}&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=1500&units=esriSRUnit_Foot&inSR=${SR}&outFields=TYPE%2CBUFFER%2CSTATUS&returnGeometry=true&outSR=${SR}&f=json`;
-  const eagleGisUrl  = `${WILDLIFE_URL}?where=${encodeURIComponent("STATUS='Active' AND TYPE='Bald Eagle'")}&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=1500&units=esriSRUnit_Foot&inSR=${SR}&outFields=TYPE%2CBUFFER&returnGeometry=true&outSR=${SR}&f=json`;
-  const owlUrl       = `${WILDLIFE_URL}?where=${encodeURIComponent("STATUS='Active' AND TYPE<>'Bald Eagle'")}&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=250&units=esriSRUnit_Foot&inSR=${SR}&outFields=TYPE%2CBUFFER&returnGeometry=true&outSR=${SR}&f=json`;
+  // Build URLs
+  const eagleGisUrl = `${WILDLIFE_URL}?where=${encodeURIComponent("STATUS='Active' AND TYPE='Bald Eagle'")}&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=1500&units=esriSRUnit_Foot&inSR=${SR}&outFields=TYPE%2CBUFFER&returnGeometry=true&outSR=${SR}&f=json`;
+  const owlUrl      = `${WILDLIFE_URL}?where=${encodeURIComponent("STATUS='Active' AND TYPE<>'Bald Eagle'")}&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=250&units=esriSRUnit_Foot&inSR=${SR}&outFields=TYPE%2CBUFFER&returnGeometry=true&outSR=${SR}&f=json`;
 
-  const [agolFeats, gisFeats, owlFeats] = await Promise.all([
-    safeFetch(eagleAgolUrl),
+  // Fire eagle (GIS) and owl together — saves one round-trip vs original
+  const [gisFeats, owlFeats] = await Promise.all([
     safeFetch(eagleGisUrl),
     safeFetch(owlUrl)
   ]);
@@ -834,7 +1041,6 @@ async function checkWildlife(x, y) {
   let eagle = false, owl = false, tortoise = false;
   const notes = [];
 
-  // Helper: check distance using geometry if available, otherwise trust API returned it within range
   const inBuffer = (f) => {
     const bufFt = Number(f.attributes.BUFFER || 0);
     const nx = f.geometry?.x, ny = f.geometry?.y;
@@ -843,39 +1049,47 @@ async function checkWildlife(x, y) {
       if (dist > bufFt) return false;
       notes.push(`Eagle (${bufFt}ft buffer, ${Math.round(dist)}ft away)`);
     } else {
-      // No geometry — API already filtered by distance, trust it
       notes.push(`Eagle (${bufFt}ft buffer)`);
     }
     return true;
   };
 
-  // Deduplicate eagle results from both sources
-  const seen = new Set();
-  const eagleAll = [...(agolFeats || []), ...(gisFeats || [])].filter(f => {
-    const id = f.attributes.OBJECTID ?? JSON.stringify(f.attributes);
-    if (seen.has(id)) return false;
-    seen.add(id); return true;
-  });
-
-  for (const f of eagleAll) {
-    if (!eagle && inBuffer(f)) eagle = true;
+  // Eagle: use GIS source first. Only fall back to AGOL if GIS request failed entirely.
+  if (gisFeats === null) {
+    // GIS failed — try AGOL as fallback
+    const eagleAgolUrl = `${EAGLE_URL}?where=${encodeURIComponent("STATUS='Active'")}&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=1500&units=esriSRUnit_Foot&inSR=${SR}&outFields=TYPE%2CBUFFER%2CSTATUS&returnGeometry=true&outSR=${SR}&f=json`;
+    const agolFeats = await safeFetch(eagleAgolUrl);
+    if (agolFeats === null) return { eagle: 'error', owl: false, tortoise: false, notes: 'Eagle lookup failed' };
+    for (const f of agolFeats) { if (!eagle && inBuffer(f)) eagle = true; }
+  } else {
+    for (const f of gisFeats) { if (!eagle && inBuffer(f)) eagle = true; }
   }
 
-  // If both eagle sources failed entirely, return error
-  if (agolFeats === null && gisFeats === null) {
-    return { eagle: 'error', owl: false, tortoise: false, notes: 'Eagle lookup failed' };
-  }
-
+  // Owl / tortoise from the 250ft query
   for (const f of (owlFeats || [])) {
-    const type  = String(f.attributes.TYPE || '').toLowerCase();
+    const type   = String(f.attributes.TYPE || '').toLowerCase();
     const rawBuf = Number(f.attributes.BUFFER || 0);
-    // GIS stores burrow radius (33ft) but protection zone is 150ft per FWC rules
-    const bufFt = Math.max(rawBuf, 150);
     const nx = f.geometry?.x, ny = f.geometry?.y;
     const dist = (nx != null && ny != null) ? Math.sqrt(Math.pow(x-nx,2)+Math.pow(y-ny,2)) : 0;
-    if (nx != null && dist > bufFt) continue;
-    if      (type === 'owl burrow'             && !owl)      { owl      = true; notes.push(`Owl (${bufFt}ft buffer, ${Math.round(dist)}ft away)`); }
-    else if (type === 'gopher tortoise burrow' && !tortoise) { tortoise = true; notes.push(`Tortoise (${bufFt}ft buffer, ${Math.round(dist)}ft away)`); }
+    const threshold = rawBuf > 10 ? rawBuf : 25;
+    if (nx != null && dist > threshold) continue;
+    if      (type === 'owl burrow'             && !owl)      { owl      = true; notes.push(`Owl (${Math.round(dist)}ft away)`); }
+    else if (type === 'gopher tortoise burrow' && !tortoise) { tortoise = true; notes.push(`Tortoise (${Math.round(dist)}ft away)`); }
+  }
+
+  // Ext query: only fire if at least one is still missing AND the 250ft query succeeded
+  // (if owlFeats was null, ext won't help either)
+  if (owlFeats !== null && (!tortoise || !owl)) {
+    const extUrl = `${WILDLIFE_URL}?where=${encodeURIComponent("STATUS='Active' AND TYPE<>'Bald Eagle'")}&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=130&units=esriSRUnit_Foot&inSR=${SR}&outFields=TYPE%2CBUFFER&returnGeometry=true&outSR=${SR}&f=json`;
+    const extD = await safeFetch(extUrl);
+    for (const f of (extD || [])) {
+      const t2 = String(f.attributes.TYPE || '').toLowerCase();
+      const nx2 = f.geometry?.x, ny2 = f.geometry?.y;
+      const d2 = (nx2 != null && ny2 != null) ? Math.sqrt(Math.pow(x-nx2,2)+Math.pow(y-ny2,2)) : 999;
+      if (d2 > 110) continue;
+      if      (t2 === 'owl burrow'             && !owl)      { owl      = true; notes.push(`Owl (${Math.round(d2)}ft away)`); }
+      else if (t2 === 'gopher tortoise burrow' && !tortoise) { tortoise = true; notes.push(`Tortoise (${Math.round(d2)}ft away)`); }
+    }
   }
 
   return { eagle, owl, tortoise, notes: notes.join('; ') };
@@ -969,13 +1183,13 @@ async function checkCanal(x, y) {
 async function checkCornerLot(x, y) {
   try {
     // Request geometry so we can compute intersection proximity in Method 2
-    const url = `${STREET_URL}?where=1%3D1&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=110&units=esriSRUnit_Foot&inSR=${SR}&outFields=FULLNAME%2CSTREET_NAME%2CFULL_NAME%2CNAME&returnGeometry=true&outSR=${SR}&resultRecordCount=20&f=json`;
+    const url = `${STREET_URL}?where=1%3D1&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=140&units=esriSRUnit_Foot&inSR=${SR}&outFields=FULLNAME%2CSTREET_NAME%2CFULL_NAME%2CNAME&returnGeometry=true&outSR=${SR}&resultRecordCount=20&f=json`;
     const res = await fetch(url);
     const d   = await res.json();
 
     if (d.error) {
       // Fallback: IMS MapServer layer 22
-      const url2 = `${BASE}/IMS/City_of_Cape_Coral_IMS_AGOL/MapServer/22/query?where=1%3D1&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=110&units=esriSRUnit_Foot&inSR=${SR}&outFields=*&returnGeometry=true&outSR=${SR}&resultRecordCount=20&f=json`;
+      const url2 = `${BASE}/IMS/City_of_Cape_Coral_IMS_AGOL/MapServer/22/query?where=1%3D1&geometry=${x}%2C${y}&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=140&units=esriSRUnit_Foot&inSR=${SR}&outFields=*&returnGeometry=true&outSR=${SR}&resultRecordCount=20&f=json`;
       const res2 = await fetch(url2);
       const d2   = await res2.json();
       if (d2.error) return { result: 'error', detail: d2.error.message };
@@ -1012,7 +1226,7 @@ function evaluateStreets(features, px, py) {
   // ── Method 2: address must be within 55ft of BOTH street centerlines ──
   // A true corner lot fronts two streets — it's physically close to each one.
   // A mid-block lot near an intersection is close to one street but not both.
-  const FRONTAGE_THRESH = 90; // ft — max distance from address to a street centerline
+  const FRONTAGE_THRESH = 120; // ft — max distance from address to a street centerline
 
   // Point-to-segment distance helper
   const dist2D = (a, b) => Math.sqrt((a.x-b.x)**2 + (a.y-b.y)**2);
@@ -1058,14 +1272,20 @@ function evaluateStreets(features, px, py) {
 async function run() {
   if (running) return;
   running = true;
+  paused = false;
   results = [];
+  completedCount = 0;
+  startTime = Date.now();
   document.getElementById('startBtn').disabled = true;
   document.getElementById('progCard').style.display = 'block';
   document.getElementById('results-section').style.display = 'none';
   document.getElementById('logBox').innerHTML = '';
+  document.getElementById('pauseBtn').style.display = 'inline-flex';
+  document.getElementById('dlPartialBtn').style.display = 'inline-flex';
+  document.getElementById('pauseBanner').style.display = 'none';
 
   const total = rawData.length;
-  addLog(`Processing ${total} addresses (3 at a time)…`, 'info');
+  addLog(`Processing ${total} addresses (10 at a time)…`, 'info');
 
   // Pre-allocate results array to maintain order
   results = new Array(total).fill(null);
@@ -1102,14 +1322,26 @@ async function run() {
     rec._status = 'ok';
     if (geo.fuzzy) addLog(`Row ${i+1}: ~ fuzzy match — "${geo.label}"`, 'warn');
 
+    // Read checkboxes — skip unchecked checks entirely
+    const doWater   = document.getElementById('chkWater').checked;
+    const doSewer   = document.getElementById('chkSewer').checked;
+    const doZoning  = document.getElementById('chkZoning').checked;
+    const doFlood   = document.getElementById('chkFlood').checked;
+    const doWildlife= document.getElementById('chkWildlife').checked;
+    const doCanal   = document.getElementById('chkCanal').checked;
+    const doCorner  = document.getElementById('chkCorner').checked;
+
+    const skip = { result: '', detail: '' };
+    const skipWL = { eagle: false, owl: false, tortoise: false, notes: '' };
+
     const [w, s, zon, fld, wl, cnl, cor] = await Promise.all([
-      checkPolygon(WATER_URL, geo.x, geo.y),
-      checkPolygon(SEWER_URL, geo.x, geo.y),
-      checkZoning(geo.x, geo.y),
-      checkFloodZone(geo.x, geo.y),
-      checkWildlife(geo.x, geo.y),
-      checkCanal(geo.x, geo.y),
-      checkCornerLot(geo.x, geo.y)
+      doWater    ? checkPolygonFast(WATER_URL, 'water', geo.x, geo.y) : Promise.resolve(skip),
+      doSewer    ? checkPolygonFast(SEWER_URL, 'sewer', geo.x, geo.y) : Promise.resolve(skip),
+      doZoning   ? checkZoningFast(geo.x, geo.y)                      : Promise.resolve(skip),
+      doFlood    ? checkFloodZoneFast(geo.x, geo.y)                   : Promise.resolve(skip),
+      doWildlife ? checkWildlife(geo.x, geo.y)                        : Promise.resolve(skipWL),
+      doCanal    ? checkCanalFast(geo.x, geo.y)                       : Promise.resolve(skip),
+      doCorner   ? checkCornerLot(geo.x, geo.y)                       : Promise.resolve(skip),
     ]);
 
     rec.water    = w.result;
@@ -1132,7 +1364,6 @@ async function run() {
       wl.eagle    === true ? 'Eagle'    : '',
       wl.owl      === true ? 'Owl'      : '',
       wl.tortoise === true ? 'Tortoise' : '',
-      
       cnl.result  === 'Yes' ? 'Canal'    : '',
       cor.result  === 'Yes' ? 'Corner'   : ''
     ].filter(Boolean).join(', ') || '—';
@@ -1142,9 +1373,12 @@ async function run() {
     setProgress(++completed, total);
   };
 
-  // Process in chunks of 3 concurrently
-  const CONCURRENCY = 3;
+  // Process in chunks of 10 concurrently
+  const CONCURRENCY = 10;
   for (let i = 0; i < total; i += CONCURRENCY) {
+    // Wait while paused
+    while (paused) await sleep(300);
+    if (!running) break; // stopped externally
     const chunk = [];
     for (let j = i; j < Math.min(i + CONCURRENCY, total); j++) chunk.push(processOne(j));
     await Promise.all(chunk);
@@ -1152,16 +1386,66 @@ async function run() {
 
   results = results.filter(Boolean);
   setProgress(total, total);
-  document.getElementById('pTxt').textContent = `Complete — ${total} processed`;
+  document.getElementById('pTxt').textContent = `Complete — ${results.length} processed`;
+  document.getElementById('pEta').textContent = '';
+  document.getElementById('pauseBtn').style.display = 'none';
+  document.getElementById('dlPartialBtn').style.display = 'none';
+  document.getElementById('pauseBanner').style.display = 'none';
   running = false;
+  paused = false;
   renderResults();
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-function setProgress(i, t) {
-  const p = Math.round((i/t)*100);
+
+function togglePause() {
+  paused = !paused;
+  const btn = document.getElementById('pauseBtn');
+  const banner = document.getElementById('pauseBanner');
+  if (paused) {
+    btn.textContent = '▶ Resume';
+    btn.style.color = '#4ade80';
+    btn.style.borderColor = '#4ade80';
+    banner.style.display = 'block';
+  } else {
+    btn.textContent = '⏸ Pause';
+    btn.style.color = '';
+    btn.style.borderColor = '';
+    banner.style.display = 'none';
+  }
+}
+
+function downloadPartial() {
+  const partial = results.filter(Boolean);
+  if (partial.length === 0) { alert('No completed rows yet.'); return; }
+  // Temporarily use partial results to export
+  const saved = results;
+  const savedRunning = running;
+  running = false;
+  const origResults = results;
+  results = partial;
+  exportXL();
+  results = origResults;
+  running = savedRunning;
+}
+function setProgress(done, total) {
+  completedCount = done;
+  const p = Math.round((done/total)*100);
   document.getElementById('pFill').style.width = p + '%';
-  document.getElementById('pTxt').textContent  = `${i} / ${t}  (${p}%)`;
+  document.getElementById('pTxt').textContent  = `${done} / ${total}  (${p}%)`;
+
+  // ETA calculation
+  if (done > 2 && startTime > 0) {
+    const elapsed = (Date.now() - startTime) / 1000; // seconds
+    const rate = done / elapsed; // rows per second
+    const remaining = (total - done) / rate;
+    const etaEl = document.getElementById('pEta');
+    if (etaEl) {
+      if (remaining < 60) etaEl.textContent = `~${Math.round(remaining)}s remaining`;
+      else if (remaining < 3600) etaEl.textContent = `~${Math.round(remaining/60)}m remaining`;
+      else etaEl.textContent = `~${(remaining/3600).toFixed(1)}h remaining`;
+    }
+  }
 }
 function addLog(msg, type) {
   const b = document.getElementById('logBox');
